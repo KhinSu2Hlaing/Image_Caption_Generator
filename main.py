@@ -82,7 +82,7 @@ def main():
 
 
         with CustomObjectScope({'GlorotUniform': glorot_uniform()}):
-            model = load_model('best_model50 (1).h5')
+            model = load_model('best_model50.h5')
         
 
         # Load the tokenizer
