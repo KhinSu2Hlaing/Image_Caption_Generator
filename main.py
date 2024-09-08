@@ -8,6 +8,10 @@ from keras.models import Model
 from keras.models import load_model
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+import keras
+from keras.models import load_model
+from keras.utils import CustomObjectScope
+from keras.initializers import glorot_uniform
 
 
 def idx_to_word(integer, tokenizer):
@@ -75,8 +79,11 @@ def main():
 
         # Load the captioning model
         #model = load_model("best_model50.h5")
-        import tensorflow as tf 
-        model= tf.keras.models.load_model('best_model50.h5')
+
+
+        with CustomObjectScope({'GlorotUniform': glorot_uniform()}):
+        model = load_model('best_model50.h5')
+        
 
         # Load the tokenizer
         with open('tokenizer.pickle', 'rb') as handle:
