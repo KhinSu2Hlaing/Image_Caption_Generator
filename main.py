@@ -70,6 +70,9 @@ def main():
         # restructure the model
         vgg_model = Model(inputs=vgg_model.inputs, outputs=vgg_model.layers[-2].output)
         feature = vgg_model.predict(image, verbose=0)
+        st.write("Extracted Features:")
+        st.write(feature)
+
         # Load the model
         model = load_model("best_model50.h5")
 
