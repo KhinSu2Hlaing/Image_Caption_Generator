@@ -84,7 +84,7 @@ if uploaded_file is not None:
 
     # Load the trained model and tokenizer (provide your saved model and tokenizer)
     max_length = 34  # Specify your max length used during training
-    model = tf.keras.models.load_model('my_best_model50.h5')  # Replace with the path to your model
+    model = tf.keras.models.load_model('my_best_model50 (1).h5')  # Replace with the path to your model
     tokenizer = tf.keras.preprocessing.text.tokenizer_from_json(open('tokenizer.pickle').read())  # Replace with your tokenizer
     
     # Generate caption for the uploaded image
