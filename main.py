@@ -71,7 +71,7 @@ def main():
         feature = vgg_model.predict(image, verbose=0)
         # Remove the batch dimension, reshape feature to (4096,)
         feature = feature.reshape((4096,))
-        st.write("Extracted feature shape:", feature.shape)
+        
 
         # Load the captioning model
         model = load_model("best_model50.h5")
@@ -85,6 +85,7 @@ def main():
 
         # Generate caption from the trained model
         caption = predict_caption(model, feature.reshape((1, 4096)), tokenizer, max_length)
+        st.write("Extracted feature shape:", feature.shape)
         caption = caption.split(' ', 1)[1]
         caption = caption.rsplit(' ', 1)[0]
 
