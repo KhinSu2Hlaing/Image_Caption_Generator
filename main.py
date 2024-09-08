@@ -71,7 +71,7 @@ def main():
         vgg_model = Model(inputs=vgg_model.inputs, outputs=vgg_model.layers[-2].output)
         feature = vgg_model.predict(image, verbose=0)
         # Load the model
-        model = load_model("my_best_model50 (1).h5")
+        model = load_model("best_model50.h5")
 
         with open('tokenizer.pickle', 'rb') as handle:
             tokenizer = pickle.load(handle)
