@@ -76,7 +76,7 @@ def main():
         # Load the captioning model
         #model = load_model("best_model50.h5")
         import tensorflow as tf 
-        classifierLoad = tf.keras.models.load_model('best_model50.h5')
+        model= tf.keras.models.load_model('best_model50.h5')
 
         # Load the tokenizer
         with open('tokenizer.pickle', 'rb') as handle:
