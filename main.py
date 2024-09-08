@@ -26,7 +26,7 @@ def predict_caption(model, image, tokenizer, max_length):
         # encode input sequence
         sequence = tokenizer.texts_to_sequences([in_text])[0]
         # pad the sequence
-        sequence = pad_sequences([sequence], max_length)
+        sequence = pad_sequences([sequence], maxlen=max_length)
         # predict next word
         yhat = model.predict([image, sequence], verbose=0)
         # get the index with high probability
@@ -43,7 +43,6 @@ def predict_caption(model, image, tokenizer, max_length):
             break
 
     return in_text
-
 
 
 def main():
@@ -67,22 +66,28 @@ def main():
         image = preprocess_input(image)
         # extract features
         vgg_model = VGG16()
-        # restructure the model
+        # restructure the model to get the second-to-last layer's output (4096,)
         vgg_model = Model(inputs=vgg_model.inputs, outputs=vgg_model.layers[-2].output)
         feature = vgg_model.predict(image, verbose=0)
-        st.write(feature.shape)
+        # Remove the batch dimension, reshape feature to (4096,)
+        feature = feature.reshape((4096,))
+        st.write("Extracted feature shape:", feature.shape)
 
+        # Load the captioning model
+        model = load_model("my_best_model50 (1).h5")
 
-        # Load the model
-        model = load_model("best_model50.h5")
-
+        # Load the tokenizer
         with open('tokenizer.pickle', 'rb') as handle:
             tokenizer = pickle.load(handle)
+        
+        # Set maximum caption length
         max_length = 35
-        # predict caption from the trained model
-        caption = predict_caption(model, feature, tokenizer, max_length)
+
+        # Generate caption from the trained model
+        caption = predict_caption(model, feature.reshape((1, 4096)), tokenizer, max_length)
         caption = caption.split(' ', 1)[1]
         caption = caption.rsplit(' ', 1)[0]
+
         # Display the generated caption
         st.subheader("Generated Caption")
         st.write(caption)
