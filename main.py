@@ -84,8 +84,8 @@ def main():
         max_length = 35
 
         # Generate caption from the trained model
-        caption = predict_caption(model, feature.reshape((1, 4096)), tokenizer, max_length)
-        st.write("Extracted feature shape:", feature.shape)
+        caption = predict_caption(model, feature.reshape((4096,)), tokenizer, max_length)
+       
         caption = caption.split(' ', 1)[1]
         caption = caption.rsplit(' ', 1)[0]
 
